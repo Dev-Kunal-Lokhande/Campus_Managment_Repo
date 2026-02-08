@@ -17,8 +17,8 @@ import Model.AdminEvent;
 import Service.AdminEventServ;
 import Service.AdminEventServImpl;
 
-@WebServlet("/AdminEvent_M")
-public class AdminEvent_M extends HttpServlet {
+@WebServlet("/AEventmanage")
+public class AEventmanage extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     // 🔹 When page loads
@@ -26,18 +26,12 @@ public class AdminEvent_M extends HttpServlet {
             throws ServletException, IOException {
 
         AdminEventServ service = new AdminEventServImpl();
-     
-        int totalEvent = service.showCountEvent();
-        request.setAttribute("totalEvent", totalEvent);
 
         List<AdminEvent> eventList = service.ViewData();
-        
+        System.out.println("Event List Size: " + eventList.size());
         request.setAttribute("eventList", eventList);
         
-        List<AdminEvent> studentList = service.ShowAllStudent();
-        request.setAttribute("EventStudent", studentList);
-        
-      request.getRequestDispatcher("AdminEvent.jsp")
+      request.getRequestDispatcher("AdminEventManag.jsp")
       .forward(request, response);
     }
 
@@ -58,22 +52,7 @@ public class AdminEvent_M extends HttpServlet {
         AdminEventServ service = new AdminEventServImpl();
         service.isSaveData(model);
         
-        String Name=request.getParameter("name");
-	   	String Email=request.getParameter("email");
-	    String Course=request.getParameter("course");
-	    String College_Name=request.getParameter("college_name");
-	   	
-	    AdminEvent modelS = new AdminEvent();
-	    modelS.setName(Name);
-	    modelS.setS_Email(Email);
-	    modelS.setS_Course(Course);
-	    modelS.setSCollege_name(College_Name);
-   	 
-   	    AdminEventServ Serv = new AdminEventServImpl();
-        Serv.isSaveStudentData(modelS);
-
-        //response.sendRedirect("AdminEvent_M");
-       response.sendRedirect(request.getContextPath() + "/AdminEvent_M");
+       response.sendRedirect(request.getContextPath() + "/AEventmanage");
 
     }
 

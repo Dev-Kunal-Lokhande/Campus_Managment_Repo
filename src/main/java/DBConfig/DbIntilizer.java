@@ -11,10 +11,10 @@ public class DbIntilizer{
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			con=DriverManager.getConnection("jdbc:mysql://localhost:3306/UiEvent","root","Satara@123");
 			if(con!= null) {
-				System.out.println("connexterew");
+				System.out.println("connected");
 			}
 			else {
-				System.out.println("bot connexterew");
+				System.out.println("bot connected");
 			}
 
 		}catch(Exception ex)

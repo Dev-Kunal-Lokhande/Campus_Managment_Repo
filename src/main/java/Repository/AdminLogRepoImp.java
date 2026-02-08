@@ -2,11 +2,12 @@ package Repository;
 
 import DBConfig.DbIntilizer;
 import Model.AdminLogin;
+import Model.AdminRegister;
 
 public class AdminLogRepoImp extends DbIntilizer implements AdminLogRepo {
 
 	@Override
-	public boolean isVerify(AdminLogin admin) {
+	public AdminRegister isVerify(AdminLogin admin) {
 		try {
 			String sql = "select * from adminregister where email=? and password=?";
 			ps = con.prepareStatement(sql);
@@ -14,13 +15,16 @@ public class AdminLogRepoImp extends DbIntilizer implements AdminLogRepo {
 			ps.setString(2, admin.getPassword());
 			rs = ps.executeQuery();
 			if(rs.next()){
-				return true;
-			}else{
-				return false;
+			    AdminRegister admi = new AdminRegister();
+			    admi.setName(rs.getString("name"));
+			    admi.setEmail(rs.getString("email"));
+			    return admi;
 			}
+			return null;
+
 		} catch (Exception ex) {
 			System.out.println("Error (AdminLog) = " + ex);
-			return false;
+			return null;
 		}
 	}
 

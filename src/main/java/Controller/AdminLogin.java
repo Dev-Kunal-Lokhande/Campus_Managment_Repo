@@ -6,9 +6,12 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
 import java.io.IOException;
 import java.util.*;
 
+import Model.AdminRegister;
 import Service.AdminLog;
 import Service.AdminLogImpl;
 
@@ -28,20 +31,36 @@ public class AdminLogin extends HttpServlet {
 		log.setPassword(pass);
 		
 		AdminLog logServ= new AdminLogImpl();
-		boolean b =logServ.isVerify(log);
-		if(b) {
-			RequestDispatcher r = request.getRequestDispatcher("AdminEvent.jsp");
-			r.include(request, response);
-			
-		}else {
-			out.print("log in faild");
-			RequestDispatcher r = request.getRequestDispatcher("AdminLogin.html");
-			r.include(request, response);
-			
-			
+//		boolean b =logServ.isVerify(log);
+//		if(b) {
+////			HttpSession session = request.getSession();
+////			session.setAttribute("Admin", log.getName());
+////			response.sendRedirect("AdminEvent_M");
+//			RequestDispatcher re = request.getRequestDispatcher("AdminEvent_M");
+//			re.include(request, response);
+//		}else {
+//			out.print("log in faild");
+//			RequestDispatcher r = request.getRequestDispatcher("AdminLogin.html");
+//			r.include(request, response);
+//			
+//			
+//		}
+		
+		AdminRegister adminObj = logServ.isVerify(log);
+
+		if(adminObj != null) {
+
+		    HttpSession session = request.getSession();
+		    session.setAttribute("Admin", adminObj.getName()); // 👈 NAME store karto
+
+		    response.sendRedirect("AdminEvent_M");
+
+		} else {
+
+		    request.getRequestDispatcher("AdminLogin.html")
+		           .forward(request, response);
 		}
-		
-		
+
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -1,7 +1,8 @@
 package Service;
 
 import Model.AdminLogin;
+import Model.AdminRegister;
 
 public interface AdminLog {
-	public boolean isVerify(AdminLogin admin);
+	public AdminRegister isVerify(AdminLogin admin);
 }

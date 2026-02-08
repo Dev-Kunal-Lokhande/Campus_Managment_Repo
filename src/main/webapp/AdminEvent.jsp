@@ -21,7 +21,7 @@ body {
 }
 
 .sidebar {
-	height: 100vh;
+	height: 115vh;
 	background: linear-gradient(135deg, #7f6be8, #9b8df1);
 	color: white;
 }
@@ -69,10 +69,16 @@ body {
 				id="navbarNav">
 				<ul class="navbar-nav align-items-center">
 
-					<li class="nav-item me-3" name="Adminname"><span
-						class="text-white">Welcome, </span></li>
+					<li class="nav-item me-3" name="Adminname">
+					<% String admin = (String)session.getAttribute("Admin");
+					if(admin==null){
+						admin="Admin";
+					}%>
+					<span
+						class="text-white">Welcome, <%= admin%></span>
+					</li>
 
-					<li class="nav-item"><a class="btn btn-light btn-sm" href="#">Logout</a>
+					<li class="nav-item"><a class="btn btn-light btn-sm" href="AdminLogin.html">Logout</a>
 					</li>
 
 				</ul>
@@ -87,8 +93,8 @@ body {
 			<div class="col-md-2 sidebar p-3">
 				<h4 class="text-center mb-4">Admin Panel</h4>
 
-				<a href="#dashboard">Dashboard</a> <a href="#events">Manage
-					Events</a> <a href="#students">Manage Students</a> <a href="#">Logout</a>
+				<a href="AdminEvent_M">Dashboard</a> <a href="AEventmanage">Manage
+					Events</a> <a href="StudentManage">Manage Students</a> <a href="AdminLogin.html">Logout</a>
 			</div>
 
 			<!-- Main Content -->
@@ -137,7 +143,7 @@ body {
 								<th>Event Name</th>
 								<th>Date</th>
 								<th>Location</th>
-								<th>Action</th>
+								
 							</tr>
 						</thead>
 						<tbody>
@@ -162,10 +168,7 @@ body {
 								<td><%=a.getName()%></td>
 								<td><%=a.getEDate()%></td>
 								<td><%=a.getLocation()%></td>
-								<td>
-									<button class="btn btn-sm btn-warning">Edit</button>
-									<button class="btn btn-sm btn-danger">Delete</button>
-								</td>
+								
 							</tr>
 							<%
 							}
@@ -192,7 +195,7 @@ body {
 								<th>Email</th>
 								<th>Course</th>
 								<td>College Name</td>
-								<th>Action</th>
+								
 							</tr>
 						</thead>
 
@@ -216,9 +219,7 @@ body {
 								<td><%=a.getS_Email()%></td>
 								<td><%=a.getS_Course()%></td>
 								<td><%=a.getSCollege_name()%></td>
-								<td>
-									<button class="btn btn-sm btn-danger">Delete</button>
-								</td>
+								
 							</tr>
 
 							<%

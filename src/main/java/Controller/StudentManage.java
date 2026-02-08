@@ -17,8 +17,8 @@ import Model.AdminEvent;
 import Service.AdminEventServ;
 import Service.AdminEventServImpl;
 
-@WebServlet("/AdminEvent_M")
-public class AdminEvent_M extends HttpServlet {
+@WebServlet("/StudentManage")
+public class StudentManage extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     // 🔹 When page loads
@@ -27,17 +27,11 @@ public class AdminEvent_M extends HttpServlet {
 
         AdminEventServ service = new AdminEventServImpl();
      
-        int totalEvent = service.showCountEvent();
-        request.setAttribute("totalEvent", totalEvent);
-
-        List<AdminEvent> eventList = service.ViewData();
-        
-        request.setAttribute("eventList", eventList);
         
         List<AdminEvent> studentList = service.ShowAllStudent();
         request.setAttribute("EventStudent", studentList);
         
-      request.getRequestDispatcher("AdminEvent.jsp")
+      request.getRequestDispatcher("AStudentMan.jsp")
       .forward(request, response);
     }
 
@@ -45,18 +39,6 @@ public class AdminEvent_M extends HttpServlet {
     // 🔹 When Add Event form is submitted
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        String name = request.getParameter("name");
-        String date = request.getParameter("date");
-        String location = request.getParameter("location");
-
-        AdminEvent model = new AdminEvent();
-        model.setName(name);
-        model.setEDate(date);
-        model.setLocation(location);
-
-        AdminEventServ service = new AdminEventServImpl();
-        service.isSaveData(model);
         
         String Name=request.getParameter("name");
 	   	String Email=request.getParameter("email");
@@ -73,7 +55,7 @@ public class AdminEvent_M extends HttpServlet {
         Serv.isSaveStudentData(modelS);
 
         //response.sendRedirect("AdminEvent_M");
-       response.sendRedirect(request.getContextPath() + "/AdminEvent_M");
+       response.sendRedirect(request.getContextPath() + "/StudentManage");
 
     }
 

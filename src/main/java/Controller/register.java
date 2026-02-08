@@ -6,6 +6,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
 import java.io.IOException;
 import Model.AdminRegister;
 import Service.AdminServ;
@@ -34,7 +36,8 @@ public class register extends HttpServlet {
 			AdminServ AdService = new AdminServImpl();
 			boolean b= AdService.isAddData(adminReg);
 			if(b) {
-			
+				HttpSession session = request.getSession();
+				session.setAttribute("Admin", name);
 				RequestDispatcher re = request.getRequestDispatcher("AdminLogin.html");
 				re.include(request, response);
 			}else {

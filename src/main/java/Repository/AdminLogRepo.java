@@ -1,7 +1,8 @@
 package Repository;
 
 import Model.AdminLogin;
+import Model.AdminRegister;
 
 public interface AdminLogRepo {
-	 boolean isVerify(AdminLogin admin);
+	public AdminRegister isVerify(AdminLogin admin);
 }
