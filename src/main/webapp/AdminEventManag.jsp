@@ -165,7 +165,8 @@ body {
                         <td class="text-center">
 
                             <button class="btn btn-sm btn-warning me-2">
-                                Edit
+                                <a href="#">Edit</a>
+                                
                             </button>
 
                             <button class="btn btn-sm btn-danger">
