@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Select Login Type</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+
+<style>
+body {
+	min-height: 100vh;
+	background: linear-gradient(135deg, #7f6be8, #9b8df1);
+	font-family: Arial, sans-serif;
+}
+
+.content-wrapper {
+	min-height: calc(100vh - 56px);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.main-box {
+	background: #fff;
+	padding: 50px;
+	border-radius: 15px;
+	text-align: center;
+	max-width: 650px;
+	width: 100%;
+	background: rgba(255, 255, 255, 0.25); /* transparent glass effect */
+	backdrop-filter: blur(10px);
+	-webkit-backdrop-filter: blur(10px); /* Safari support */
+	border-radius: 15px;
+	padding: 40px;
+	width: 500px;
+}
+
+.circle {
+	width: 160px;
+	height: 160px;
+	border-radius: 50%;
+	background-color: #f5f6fa;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: transform 0.3s;
+	cursor: pointer;
+}
+
+.circle:hover {
+	transform: scale(1.05);
+}
+
+.circle img {
+	width: 80px;
+	height: 80px;
+}
+
+.role-name {
+	margin-top: 12px;
+	font-weight: bold;
+	font-size: 18px;
+	color: #333;
+}
+
+a {
+	text-decoration: none;
+}
+
+.st {
+	border-radius: 50%;
+	border: 2px solid #7f6be8;
+}
+
+.circle {
+	border: 1px solid linear-gradient(135deg, #7f6be8, #9b8df1);
+}
+
+@media ( max-width : 576px) {
+	.circle {
+		width: 130px;
+		height: 130px;
+	}
+	.circle img {
+		width: 65px;
+		height: 65px;
+	}
+}
+</style>
+</head>
+<body>
+
+	<nav class="navbar navbar-expand-lg navbar-dark"
+		style="background: #7f6be8;">
+		<div class="container">
+			<a class="navbar-brand fw-bold" href="#">Campus Events</a>
+			<button class="navbar-toggler" type="button"
+				data-bs-toggle="collapse" data-bs-target="#menu">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<div class="collapse navbar-collapse" id="menu">
+				<ul class="navbar-nav ms-auto">
+					<li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+					<li class="nav-item"><a class="nav-link" href="#">Events</a></li>
+					<li class="nav-item"><a class="nav-link" href="login.html">Login</a></li>
+					<li class="nav-item"><a class="nav-link" href="#">Register</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<div class="content-wrapper">
+		<div class="main-box shadow ">
+			<h3 class="mb-3">Choose Login Type</h3>
+			<p class="mb-5">Please select how you want to continue</p>
+
+			<div class="d-flex justify-content-center gap-5 flex-wrap">
+				<a href="AdminRegister.html">
+					<div class="circle">
+						<img
+							src="https://t4.ftcdn.net/jpg/02/27/45/09/360_F_227450952_KQCMShHPOPebUXklULsKsROk5AvN6H1H.jpg"
+							class="w-100 h-100 st" alt="Admin">
+					</div>
+					<div class="role-name text-center">Admin Login</div>
+				</a>
+				
+				 <a href="AdminRegister.html">
+					<div class="circle">
+						<img src="Img/StudentLog.jpg" class="h-100 w-100 st" alt="Student">
+					</div>
+					<div class="role-name text-center">Student Login</div>
+				</a>
+			</div>
+		</div>
+	</div>
+
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

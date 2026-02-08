@@ -1,0 +1,52 @@
+@charset "UTF-8";
+
+body {
+    background-color: #f5f6fa;
+    margin: 0;
+    padding: 0;
+}
+
+.register-container {
+    min-height: 100vh;
+}
+
+/* Left Panel */
+.left-panel {
+    background: linear-gradient(135deg, #7f6be8, #9b8df1);
+    color: white;
+    padding: 60px;
+}
+
+/* Register Box */
+.register-box {
+    padding: 40px;
+    max-width: 450px;
+}
+
+/* Inputs */
+.form-control,
+.form-select {
+    border-radius: 8px;
+}
+
+/* Button */
+.btn-custom {
+    background-color: #7f6be8;
+    color: white;
+    border-radius: 8px;
+}
+
+.btn-custom:hover {
+    background-color: #6a58d6;
+}
+
+/* Mobile Optimization */
+@media (max-width: 768px) {
+    .register-box {
+        padding: 25px;
+    }
+
+    h3 {
+        font-size: 22px;
+    }
+}
