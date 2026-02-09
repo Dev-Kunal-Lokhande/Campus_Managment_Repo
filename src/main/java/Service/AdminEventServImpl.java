@@ -33,6 +33,11 @@ public class AdminEventServImpl  implements AdminEventServ{
 		// TODO Auto-generated method stub
 		return A_event.ShowAllStudent();
 	}
+	@Override
+	public boolean isDeleteEvent(int id) {
+		// TODO Auto-generated method stub
+		return A_event.isDeleteEvent(id);
+	}
 	
 
  

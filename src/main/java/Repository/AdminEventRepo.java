@@ -10,4 +10,5 @@ public interface AdminEventRepo {
 	public List<AdminEvent> ViewData();
 	public boolean isSaveStudentData(AdminEvent model);	
 	public List<AdminEvent>ShowAllStudent();
+	public boolean isDeleteEvent(int id);
 }

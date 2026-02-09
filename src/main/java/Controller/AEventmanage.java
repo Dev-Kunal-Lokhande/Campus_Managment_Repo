@@ -24,12 +24,14 @@ public class AEventmanage extends HttpServlet {
     // 🔹 When page loads
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        AdminEventServ service = new AdminEventServImpl();
+    	
+    	AdminEventServ service = new AdminEventServImpl();
 
         List<AdminEvent> eventList = service.ViewData();
         System.out.println("Event List Size: " + eventList.size());
         request.setAttribute("eventList", eventList);
+        
+
         
       request.getRequestDispatcher("AdminEventManag.jsp")
       .forward(request, response);

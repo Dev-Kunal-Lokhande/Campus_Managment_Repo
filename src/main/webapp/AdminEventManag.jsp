@@ -127,68 +127,101 @@ body {
 					<h5 class="mb-3">All Events</h5>
 
 					<div style="max-height: 300px; overflow-y: auto;">
-					  <div class="table-responsive">
-            <table class="table table-hover align-middle mb-0">
+						<div class="table-responsive">
+							<table class="table table-hover align-middle mb-0">
 
-                <thead class="table-light">
-                    <tr>
-                        <th>ID</th>
-                        <th>Event Name</th>
-                        <th>Date</th>
-                        <th>Location</th>
-                        <th class="text-center" style="width:150px;">Action</th>
-                    </tr>
-                </thead>
+								<thead class="table-light">
+									<tr>
+										<th>ID</th>
+										<th>Event Name</th>
+										<th>Date</th>
+										<th>Location</th>
+										<th class="text-center" style="width: 150px;">Action</th>
+									</tr>
+								</thead>
 
-                <tbody>
-                <%
-                List<AdminEvent> list =
-                (List<AdminEvent>) request.getAttribute("eventList");
+								<tbody>
+									<%
+									List<AdminEvent> list = (List<AdminEvent>) request.getAttribute("eventList");
 
-                if (list == null || list.size() == 0) {
-                %>
-                    <tr>
-                        <td colspan="5" class="text-center text-muted py-4">
-                            No Events Found
-                        </td>
-                    </tr>
-                <%
-                } else {
-                    for (AdminEvent a : list) {
-                %>
-                    <tr>
-                        <td class="fw-semibold"><%=a.getId()%></td>
-                        <td><%=a.getName()%></td>
-                        <td><%=a.getEDate()%></td>
-                        <td><%=a.getLocation()%></td>
+									if (list == null || list.size() == 0) {
+									%>
+									<tr>
+										<td colspan="5" class="text-center text-muted py-4">No
+											Events Found</td>
+									</tr>
+									<%
+									} else {
+									for (AdminEvent a : list) {
+									%>
+									<tr>
+										<td class="fw-semibold"><%=a.getId()%></td>
+										<td><%=a.getName()%></td>
+										<td><%=a.getEDate()%></td>
+										<td><%=a.getLocation()%></td>
 
-                        <td class="text-center">
+										<td class="text-center"><a href="Update_event?id=<%=a.getId()%>"
+											class="btn btn-sm btn-warning me-2" data-bs-toggle="modal"
+											data-bs-target="#UpdateEventModal"> Edit </a> <a
+											href="DeleteAE?id=<%=a.getId()%>"
+											class="btn btn-sm btn-danger">Delete </a></td>
+									</tr>
+									<%
+									}
+									}
+									%>
+								</tbody>
 
-                            <button class="btn btn-sm btn-warning me-2">
-                                <a href="#">Edit</a>
-                                
-                            </button>
-
-                            <button class="btn btn-sm btn-danger">
-                                Delete
-                            </button>
-
-                        </td>
-                    </tr>
-                <%
-                    }
-                }
-                %>
-                </tbody>
-
-            </table>
-        </div>
+							</table>
+						</div>
 					</div>
 				</div>
 
 			</div>
 		</div>
 	</div>
+	<!-- Update Event Modal -->
+<div class="modal fade" id="UpdateEventModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content shadow">
+
+            <div class="modal-header"
+                 style="background: linear-gradient(135deg, #7f6be8, #9b8df1); color:white;">
+                <h5 class="modal-title">Update Event</h5>
+                <button type="button" class="btn-close btn-close-white"
+                        data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body p-4">
+
+                <form>
+                    <div class="mb-3">
+                        <label class="form-label">Event Name</label>
+                        <input type="text" class="form-control"
+                               placeholder="Enter event name" value='' name="name" required="required">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Event Date</label>
+                        <input type="date" class="form-control">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Location</label>
+                        <input type="text" class="form-control"
+                               placeholder="Enter location">
+                    </div>
+
+                    <button type="submit" class="btn btn-theme w-100">
+                        Update Event
+                    </button>
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+</div>
 
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
