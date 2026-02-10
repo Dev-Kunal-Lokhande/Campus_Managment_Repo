@@ -21,7 +21,7 @@ public class Admin_regRepoImpl extends DbIntilizer implements Admin_regRepo {
 		System.out.println(admin.getName());
 		
 		int value = ps.executeUpdate();
-		return value>0 ? true:false;
+		return value>0;
 		
 		
 		}catch(Exception ex)

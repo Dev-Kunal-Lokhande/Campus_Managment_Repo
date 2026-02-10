@@ -30,29 +30,16 @@ public class AdminLogin extends HttpServlet {
 		log.setName(name);
 		log.setPassword(pass);
 		
-		AdminLog logServ= new AdminLogImpl();
-//		boolean b =logServ.isVerify(log);
-//		if(b) {
-////			HttpSession session = request.getSession();
-////			session.setAttribute("Admin", log.getName());
-////			response.sendRedirect("AdminEvent_M");
-//			RequestDispatcher re = request.getRequestDispatcher("AdminEvent_M");
-//			re.include(request, response);
-//		}else {
-//			out.print("log in faild");
-//			RequestDispatcher r = request.getRequestDispatcher("AdminLogin.html");
-//			r.include(request, response);
-//			
-//			
-//		}
-		
+		AdminLog logServ= new AdminLogImpl();		
 		AdminRegister adminObj = logServ.isVerify(log);
-
+       
 		if(adminObj != null) {
-
+			 System.out.print(adminObj.getEmail());
+			 System.out.print(adminObj.getPassword());
 		    HttpSession session = request.getSession();
-		    session.setAttribute("Admin", adminObj.getName()); // 👈 NAME store karto
-
+		    session.setAttribute("Admin", adminObj.getName());
+		    session.setAttribute("AdminId", adminObj.getAdmin_id());
+		    
 		    response.sendRedirect("AdminEvent_M");
 
 		} else {

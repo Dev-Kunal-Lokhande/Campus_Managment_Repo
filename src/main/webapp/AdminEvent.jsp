@@ -70,16 +70,16 @@ body {
 				<ul class="navbar-nav align-items-center">
 
 					<li class="nav-item me-3" name="Adminname">
-					<% String admin = (String)session.getAttribute("Admin");
-					if(admin==null){
-						admin="Admin";
-					}%>
-					<span
-						class="text-white">Welcome, <%= admin%></span>
+						<%
+						String admin = (String) session.getAttribute("Admin");
+						if (admin == null) {
+							admin = "Admin";
+						}
+						%> <span class="text-white">Welcome, <%=admin%></span>
 					</li>
 
-					<li class="nav-item"><a class="btn btn-light btn-sm" href="AdminLogin.html">Logout</a>
-					</li>
+					<li class="nav-item"><a class="btn btn-light btn-sm"
+						href="AdminLogin.html">Logout</a></li>
 
 				</ul>
 			</div>
@@ -94,7 +94,8 @@ body {
 				<h4 class="text-center mb-4">Admin Panel</h4>
 
 				<a href="AdminEvent_M">Dashboard</a> <a href="AEventmanage">Manage
-					Events</a> <a href="StudentManage">Manage Students</a> <a href="AdminLogin.html">Logout</a>
+					Events</a> <a href="StudentManage">Manage Students</a> <a
+					href="AdminLogin.html">Logout</a>
 			</div>
 
 			<!-- Main Content -->
@@ -113,7 +114,7 @@ body {
 					<div class="col-md-4">
 						<div class="card shadow p-3 text-center">
 							<h5>Total Students</h5>
-							<h3>120</h3>
+							<h3>${totalStudent != null ? totalStudent : 0}</h3>
 						</div>
 					</div>
 
@@ -139,16 +140,15 @@ body {
 
 						<thead class="table-light">
 							<tr>
-								<th>ID</th>
+								<th>Sr.No</th>
 								<th>Event Name</th>
 								<th>Date</th>
 								<th>Location</th>
-								
 							</tr>
 						</thead>
 						<tbody>
-					
-							
+
+
 							<%
 							List<AdminEvent> list = (List<AdminEvent>) request.getAttribute("eventList");
 
@@ -159,16 +159,16 @@ body {
 							</tr>
 							<%
 							} else {
-
+								int count=1;
 							for (AdminEvent a : list) {
 							%>
 
 							<tr>
-								<td><%=a.getId()%></td>
+								<td><%=count++%></td>
 								<td><%=a.getName()%></td>
 								<td><%=a.getEDate()%></td>
 								<td><%=a.getLocation()%></td>
-								
+
 							</tr>
 							<%
 							}
@@ -190,12 +190,12 @@ body {
 
 						<thead class="table-light">
 							<tr>
-								<th>ID</th>
+								<th>Sr.No</th>
 								<th>Name</th>
 								<th>Email</th>
 								<th>Course</th>
 								<td>College Name</td>
-								
+
 							</tr>
 						</thead>
 
@@ -210,16 +210,17 @@ body {
 							</tr>
 							<%
 							} else {
+								int count=1;
 							for (AdminEvent a : listS) {
 							%>
 
 							<tr>
-								<td><%=a.getId()%></td>
+								<td><%= count++%></td>
 								<td><%=a.getName()%></td>
 								<td><%=a.getS_Email()%></td>
 								<td><%=a.getS_Course()%></td>
 								<td><%=a.getSCollege_name()%></td>
-								
+
 							</tr>
 
 							<%
@@ -244,6 +245,9 @@ body {
 				</div>
 				<div class="modal-body">
 					<form name="frm" action="AdminEvent_M" method="post">
+					 
+					<input type="hidden" name="formType" value="event">
+					
 						<div class="mb-3">
 							<label>Event Name</label> <input type="text" class="form-control"
 								name="name" value='' required>
@@ -255,6 +259,16 @@ body {
 						<div class="mb-3">
 							<label>Location</label> <input type="text" class="form-control"
 								name="location" value='' required>
+						</div>
+						<% 
+						Integer AdminId=(Integer)session.getAttribute("AdminId");
+						
+						if(AdminId == null){
+							out.print("not found");
+						}
+						%>
+						<div class="mb-3">
+							 <input type="hidden" name="adminId" value='<%=AdminId %>'>
 						</div>
 						<button type="submit" class="btn btn-theme w-100" name='s'>Save
 							Event</button>
@@ -274,6 +288,7 @@ body {
 				</div>
 				<div class="modal-body">
 					<form name="frm" action="AdminEvent_M" method="post">
+					   <input type="hidden" name="formType" value="student">
 						<div class="mb-3">
 							<label>Student Name</label> <input type="text"
 								class="form-control" name="name" value='' required>

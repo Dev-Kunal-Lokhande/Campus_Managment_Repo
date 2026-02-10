@@ -116,7 +116,7 @@ body {
 					<table class="table table-bordered">
 						<thead class="table-light">
 							<tr>
-								<th>ID</th>
+								<th>Sr.No</th>
 								<th>Name</th>
 								<th>Email</th>
 								<th>Course</th>
@@ -137,10 +137,11 @@ body {
 							</tr>
 							<%
 							} else {
+							int count = 1;
 							for (AdminEvent a : listS) {
 							%>
 							<tr>
-								<td><%=a.getId()%></td>
+								<td><%=count++%></td>
 								<td><%=a.getName()%></td>
 								<td><%=a.getS_Email()%></td>
 								<td><%=a.getS_Course()%></td>

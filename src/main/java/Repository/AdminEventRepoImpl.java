@@ -14,32 +14,36 @@ public class AdminEventRepoImpl extends DbIntilizer implements AdminEventRepo {
 	@Override
 	public boolean isSaveData(AdminEvent model) {
 		try {
-			String sql = "insert into adminevent_m (name,EventDate,Location)" + " values(?,?,?)";
+			String sql = "INSERT INTO adminevent_m (name, EventDate, Location, admin_id) VALUES (?, ?, ?, ?)";
 			ps = con.prepareStatement(sql);
 			ps.setString(1, model.getName());
 			ps.setString(2, model.getEDate());
 			ps.setString(3, model.getLocation());
+			ps.setInt(4, model.getAdminId());
 			System.out.println("Name = " + model.getName());
 			System.out.println("Date = " + model.getEDate());
 			System.out.println("Location = " + model.getLocation());
+			System.out.println("Admin id ="+ model.getAdminId());
 
 			int value = ps.executeUpdate();
-			return value > 0;
+			return value > 0? true:false;
 
 		} catch (Exception e) {
-			System.out.println("Error (AdminEventRepoImpl) = " + e);
+			System.out.println("Error (AdminEventRepoImpl) isSavedata = " + e);
 			return false;
 		}
 	}
 
 	@Override
-	public int showCountEvent() {
+	public int showCountEvent(int admin_id) {
 		try {
-			String sql = "select count(*) from adminevent_m";
+			String sql = "select count(*) from adminevent_m where admin_id=?";
+			
 			ps = con.prepareStatement(sql);
+			ps.setInt(1, admin_id);
 			rs = ps.executeQuery();
 			if (rs.next()) {
-				System.out.print(rs.getInt(1));
+//				System.out.print(rs.getInt(1));
 				return rs.getInt(1);
 			}
 
@@ -51,19 +55,20 @@ public class AdminEventRepoImpl extends DbIntilizer implements AdminEventRepo {
 	}
 
 	@Override
-	public List<AdminEvent> ViewData() {
+	public List<AdminEvent> ViewData(int admin_id) {
 
 		List<AdminEvent> list = new ArrayList<>();
 
 		try {
-			String sql = "SELECT * FROM adminevent_m";
+			String sql = "SELECT * FROM adminevent_m where admin_id=?";
 			ps = con.prepareStatement(sql);
+			ps.setInt(1, admin_id);
 			rs = ps.executeQuery();
 
 			while (rs.next()) {
 				AdminEvent a = new AdminEvent();
 
-				a.setId(rs.getInt("id"));
+				a.setId(rs.getInt("E_Id"));
 				a.setName(rs.getString("name"));
 				a.setEDate(rs.getString("EventDate"));
 				a.setLocation(rs.getString("Location"));
@@ -83,15 +88,15 @@ public class AdminEventRepoImpl extends DbIntilizer implements AdminEventRepo {
 	@Override
 	public boolean isSaveStudentData(AdminEvent model) {
 		try {
-			String sql = "insert into adminStudent_m (name,email,course,collage_name)" + "values(?,?,?,?)";
+			String sql = "INSERT INTO adminStudent_m (Name, Email, Course, College_Name, admin_id) VALUES (?, ?, ?, ?, ?)";
 			ps = con.prepareStatement(sql);
 			ps.setString(1, model.getName());
 			ps.setString(2, model.getS_Email());
 			ps.setString(3, model.getSCollege_name());
 			ps.setString(4, model.getS_Course());
-			System.out.print(model.getName());
+			ps.setInt(5, model.getAdminId());
 			int val = ps.executeUpdate();
-			return val > 0;
+			return val > 0  ? true:false;
 
 		} catch (Exception e) {
 			System.out.println("Error (isSaveStudentData) = " + e);
@@ -101,20 +106,21 @@ public class AdminEventRepoImpl extends DbIntilizer implements AdminEventRepo {
 	}
 
 	@Override
-	public List<AdminEvent> ShowAllStudent() {
+	public List<AdminEvent> ShowAllStudent(int adminId) {
 		list = new ArrayList<AdminEvent>();
 		try {
 
-			String sql = "select * from adminStudent_m";
+			String sql = "select * from adminStudent_m where admin_id=?";
 			ps = con.prepareStatement(sql);
+			ps.setInt(1, adminId);
 			rs = ps.executeQuery();
 			while (rs.next()) {
 				AdminEvent model = new AdminEvent();
-				model.setId(rs.getInt("id"));
-				model.setName(rs.getString("name"));
-				model.setS_Email(rs.getString("email"));
-				model.setS_Course(rs.getString("course"));
-				model.setSCollege_name(rs.getString("collage_name"));
+				model.setId(rs.getInt("S_Id"));
+				model.setName(rs.getString("Name"));
+				model.setS_Email(rs.getString("Email"));
+				model.setS_Course(rs.getString("Course"));
+				model.setSCollege_name(rs.getString("College_Name"));
 				list.add(model);
 
 			}
@@ -130,9 +136,9 @@ public class AdminEventRepoImpl extends DbIntilizer implements AdminEventRepo {
 	@Override
 	public boolean isDeleteEvent(int id) {
 		try {
-			String sql = "delete from adminevent_m where Id=?";
+			String sql = "delete from adminevent_m where  E_Id =?";
 			ps = con.prepareStatement(sql);
-			ps.setInt(1, id);
+			ps.setInt(1,id);
 			int value = ps.executeUpdate();
 			return value > 0 ? true : false;
 		} catch (Exception e) {
@@ -140,6 +146,25 @@ public class AdminEventRepoImpl extends DbIntilizer implements AdminEventRepo {
 			return false;
 		}
 
+	}
+
+	@Override
+	public int ShowStudentCount(int adminId) {
+		try {
+			String sql ="select count(*)from adminstudent_m where admin_id=?";
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, adminId);
+			rs = ps.executeQuery();
+			if (rs.next()) {
+//				System.out.print(rs.getInt(1));
+				return rs.getInt(1);
+			}
+			
+		}catch (Exception e) {
+			System.out.print("Error (AdminEventrepoImpl) ShowStudentCount ="+e);
+			return 0;
+		}
+		return 0;
 	}
 
 }

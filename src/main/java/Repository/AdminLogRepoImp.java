@@ -16,8 +16,11 @@ public class AdminLogRepoImp extends DbIntilizer implements AdminLogRepo {
 			rs = ps.executeQuery();
 			if(rs.next()){
 			    AdminRegister admi = new AdminRegister();
-			    admi.setName(rs.getString("name"));
-			    admi.setEmail(rs.getString("email"));
+			    admi.setAdmin_id(rs.getInt("admin_id"));   
+	            admi.setName(rs.getString("name"));
+	            admi.setEmail(rs.getString("email"));
+	            admi.setContact(rs.getString("contact"));
+	            admi.setPassword(rs.getString("password"));
 			    return admi;
 			}
 			return null;

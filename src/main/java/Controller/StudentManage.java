@@ -6,6 +6,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -27,8 +28,9 @@ public class StudentManage extends HttpServlet {
 
         AdminEventServ service = new AdminEventServImpl();
      
-        
-        List<AdminEvent> studentList = service.ShowAllStudent();
+        HttpSession session=request.getSession();
+        Integer AdminId=(Integer)session.getAttribute("AdminId");
+        List<AdminEvent> studentList = service.ShowAllStudent(AdminId);
         request.setAttribute("EventStudent", studentList);
         
       request.getRequestDispatcher("AStudentMan.jsp")
@@ -44,12 +46,15 @@ public class StudentManage extends HttpServlet {
 	   	String Email=request.getParameter("email");
 	    String Course=request.getParameter("course");
 	    String College_Name=request.getParameter("college_name");
+	    HttpSession session=request.getSession();
+        Integer AdminId=(Integer)session.getAttribute("AdminId");
 	   	
 	    AdminEvent modelS = new AdminEvent();
 	    modelS.setName(Name);
 	    modelS.setS_Email(Email);
 	    modelS.setS_Course(Course);
 	    modelS.setSCollege_name(College_Name);
+	    modelS.setAdminId(AdminId);
    	 
    	    AdminEventServ Serv = new AdminEventServImpl();
         Serv.isSaveStudentData(modelS);

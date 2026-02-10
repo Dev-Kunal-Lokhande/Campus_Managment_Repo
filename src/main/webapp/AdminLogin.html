@@ -10,10 +10,45 @@
 
 <style>
     body {
-        background-color: #f5f6fa;
-        margin: 0;
-        padding: 0;
-    }
+            font-family: Arial, sans-serif;
+        }
+
+        /* Theme Colors (Same as Login & Registration) */
+        .bg-theme {
+            background: linear-gradient(135deg, #7f6be8, #9b8df1);
+        }
+
+        .text-theme {
+            color: #7f6be8;
+        }
+
+        .btn-theme {
+            background-color: #7f6be8;
+            color: white;
+            border-radius: 8px;
+        }
+
+        .btn-theme:hover {
+            background-color: #6a58d6;
+        }
+
+        .hero-section {
+            min-height: 85vh;
+            color: white;
+        }
+
+        .event-card {
+            border-radius: 12px;
+            transition: transform 0.3s;
+        }
+
+        .event-card:hover {
+            transform: translateY(-5px);
+        }
+
+        footer {
+            background-color: #f5f6fa;
+        }
 
     .login-container {
         min-height: 100vh;
@@ -70,10 +105,46 @@
             font-size: 22px;
         }
     }
+    
 </style>
 </head>
 
 <body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-theme">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="#">Campus Events</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="menu">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link active" href="#">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Events</a></li>   
+                <li class="nav-item dropdown">
+		          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+		           Login
+		          </a>
+		          <ul class="dropdown-menu w-25">
+		            <li><a class="dropdown-item" href="AdminLogin.html">Admin</a></li>
+		            <li><a class="dropdown-item" href="StudentLogin.html">Student</a></li>
+		          </ul>
+	          </li>
+           
+	           <li class="nav-item dropdown">
+		          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+		           Register
+		          </a>
+		          <ul class="dropdown-menu w-25">
+		            <li><a class="dropdown-item" href="AdminRegister.html">Admin</a></li>
+		            <li><a class="dropdown-item" href="StudentRegister.html">Student</a></li>
+		          </ul>
+	          </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
 
 <div class="container-fluid login-container">
     <div class="row min-vh-100">
@@ -99,7 +170,7 @@
                 <form name="frm" action="AdminLogin" method="post">
 
                     <div class="mb-3">
-                        <label class="form-label">Username</label>
+                        <label class="form-label">User Email </label>
                         <input type="text" class="form-control" value=''
                         name = "name"
                                placeholder="Enter Email id " required>

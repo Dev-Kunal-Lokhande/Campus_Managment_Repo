@@ -18,5 +18,6 @@ public class AdminEvent {
  private String S_Email;
  private String S_Course;
  private String SCollege_name; 
+ private int AdminId;
 
 }

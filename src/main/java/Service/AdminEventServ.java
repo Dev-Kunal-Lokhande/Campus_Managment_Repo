@@ -6,9 +6,10 @@ import Model.AdminEvent;
 
 public interface AdminEventServ {
 	public boolean isSaveData(AdminEvent model);
-	public int showCountEvent();
-	public List<AdminEvent> ViewData();
+	public int showCountEvent(int admin_id);
+	public List<AdminEvent> ViewData(int admin_id);
 	public boolean isSaveStudentData(AdminEvent model);
-	public List<AdminEvent> ShowAllStudent();
+	public List<AdminEvent> ShowAllStudent(int adminId);
+	public int ShowStudentCount(int adminId);
 	public boolean isDeleteEvent(int id);
 }

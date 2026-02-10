@@ -13,7 +13,7 @@ import lombok.Setter;
 
 
 public class AdminRegister {
-	private int id;
+	private int admin_id;
 	private String name;
 	private String email;
 	private String contact;

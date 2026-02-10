@@ -10,17 +10,20 @@ public class AdminEventServImpl  implements AdminEventServ{
    AdminEventRepo A_event= new AdminEventRepoImpl();
 	@Override
 	public boolean isSaveData(AdminEvent model) {
+		
 		return A_event.isSaveData(model);
+		
+		
 	}
 	@Override
-	public int showCountEvent() {
+	public int showCountEvent(int admin_id) {
 		// TODO Auto-generated method stub
-		return A_event.showCountEvent();
+		return A_event.showCountEvent(admin_id);
 	}
 	@Override
-	public List<AdminEvent> ViewData() {
+	public List<AdminEvent> ViewData(int admin_id) {
 		// TODO Auto-generated method stub
-		return A_event.ViewData();
+		return A_event.ViewData( admin_id);
 	}
 	//Student Data ...
 	@Override
@@ -29,16 +32,21 @@ public class AdminEventServImpl  implements AdminEventServ{
 		return A_event.isSaveStudentData(model);
 	}
 	@Override
-	public List<AdminEvent> ShowAllStudent() {
+	public List<AdminEvent> ShowAllStudent(int adminId) {
 		// TODO Auto-generated method stub
-		return A_event.ShowAllStudent();
+		return A_event.ShowAllStudent(adminId);
 	}
 	@Override
 	public boolean isDeleteEvent(int id) {
 		// TODO Auto-generated method stub
 		return A_event.isDeleteEvent(id);
 	}
-	
+	@Override
+	public int ShowStudentCount(int adminId) {
+		// TODO Auto-generated method stub
+		return A_event.ShowStudentCount(adminId);
+	}
+
 
  
 }

@@ -6,6 +6,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -26,16 +27,27 @@ public class AdminEvent_M extends HttpServlet {
             throws ServletException, IOException {
 
         AdminEventServ service = new AdminEventServImpl();
+        HttpSession session =request.getSession(); 
+        Integer AdminId=(Integer)session.getAttribute("AdminId");
+    	if(AdminId == null) {
+    		response.sendRedirect("AdminLogin.html");
+    		return;
+    	}
      
-        int totalEvent = service.showCountEvent();
+        int totalEvent = service.showCountEvent(AdminId);
         request.setAttribute("totalEvent", totalEvent);
-
-        List<AdminEvent> eventList = service.ViewData();
+        int totalStudent = service.ShowStudentCount(AdminId);
+        request.setAttribute("totalStudent", totalStudent);
+        System.out.print("Student count = "+totalStudent);
+        List<AdminEvent> eventList = service.ViewData(AdminId);
         
         request.setAttribute("eventList", eventList);
         
-        List<AdminEvent> studentList = service.ShowAllStudent();
+        List<AdminEvent> studentList = service.ShowAllStudent(AdminId);
         request.setAttribute("EventStudent", studentList);
+        
+       
+       
         
       request.getRequestDispatcher("AdminEvent.jsp")
       .forward(request, response);
@@ -45,34 +57,54 @@ public class AdminEvent_M extends HttpServlet {
     // 🔹 When Add Event form is submitted
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+    	
+    	String form_type=request.getParameter("formType");
+    	HttpSession session =request.getSession(); //Add Register admin id!
+    	if("event".equals(form_type)){
+    		
+    		
+    	   	
+            String name = request.getParameter("name");
+            String date = request.getParameter("date");
+            String location = request.getParameter("location");
+            Integer AdminId=(Integer)session.getAttribute("AdminId");
+        	if(AdminId == null) {
+        		response.sendRedirect("AdminLogin.html");
+        		return;
+        	}
+        	
 
-        String name = request.getParameter("name");
-        String date = request.getParameter("date");
-        String location = request.getParameter("location");
+            AdminEvent model = new AdminEvent();
+            model.setName(name);
+            model.setEDate(date);
+            model.setLocation(location);
+            model.setAdminId(AdminId);
+      
 
-        AdminEvent model = new AdminEvent();
-        model.setName(name);
-        model.setEDate(date);
-        model.setLocation(location);
-
-        AdminEventServ service = new AdminEventServImpl();
-        service.isSaveData(model);
-        
-        String Name=request.getParameter("name");
-	   	String Email=request.getParameter("email");
-	    String Course=request.getParameter("course");
-	    String College_Name=request.getParameter("college_name");
-	   	
-	    AdminEvent modelS = new AdminEvent();
-	    modelS.setName(Name);
-	    modelS.setS_Email(Email);
-	    modelS.setS_Course(Course);
-	    modelS.setSCollege_name(College_Name);
-   	 
-   	    AdminEventServ Serv = new AdminEventServImpl();
-        Serv.isSaveStudentData(modelS);
-
-        //response.sendRedirect("AdminEvent_M");
+            AdminEventServ service = new AdminEventServImpl();
+            service.isSaveData(model);
+    	}else {
+    		 Integer AdminId=(Integer)session.getAttribute("AdminId");
+         	if(AdminId == null) {
+         		response.sendRedirect("AdminLogin.html");
+         		return;
+         	}
+    		  String Name=request.getParameter("name");
+    		   	String Email=request.getParameter("email");
+    		    String Course=request.getParameter("course");
+    		    String College_Name=request.getParameter("college_name"); 
+    		   	
+    		    AdminEvent modelS = new AdminEvent();
+    		    modelS.setName(Name);
+    		    modelS.setS_Email(Email);
+    		    modelS.setS_Course(Course);
+    		    modelS.setSCollege_name(College_Name);
+    	   	    modelS.setAdminId(AdminId);
+    	   	    AdminEventServ Serv = new AdminEventServImpl();
+    	        Serv.isSaveStudentData(modelS);
+    	}
+    	
+       //response.sendRedirect("AdminEvent_M");
        response.sendRedirect(request.getContextPath() + "/AdminEvent_M");
 
     }
