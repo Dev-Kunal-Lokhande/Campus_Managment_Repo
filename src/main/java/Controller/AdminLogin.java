@@ -40,11 +40,14 @@ public class AdminLogin extends HttpServlet {
 		    session.setAttribute("Admin", adminObj.getName());
 		    session.setAttribute("AdminId", adminObj.getAdmin_id());
 		    
+		    session.setAttribute("loginMsg", "Login Successful");
+		    
 		    response.sendRedirect("AdminEvent_M");
 
 		} else {
-
-		    request.getRequestDispatcher("AdminLogin.html")
+			HttpSession session=request.getSession();
+			session.setAttribute("loginError", "Loging faild");
+		    request.getRequestDispatcher("AdminLogin.jsp")
 		           .forward(request, response);
 		}
 

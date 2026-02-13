@@ -50,6 +50,34 @@ body {
 .btn-theme:hover {
 	background-color: #6a58d6;
 }
+/* login msg faild  */
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+
+.success-animate {
+    animation: slideInRight 0.6s ease-out;
+}
+
+.right-alert {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 250px;
+    height: 40px;
+    z-index: 9999;
+}
+
+
 </style>
 </head>
 <body>
@@ -102,7 +130,47 @@ body {
 			<div class="col-md-10 p-4">
 
 				<!-- Dashboard -->
-				<h2 id="dashboard">Dashboard</h2>
+				<div class="d-flex justify-content-between align-items-center mb-3">
+
+					<!-- Left Side -->
+					<h2 id="dashboard" class="mb-0">Dashboard</h2>
+
+					<!-- Right Side -->
+					<%
+					String loginMsg = (String) session.getAttribute("loginMsg");
+					if (loginMsg != null) {
+					%>
+
+				<div class="alert d-flex align-items-center py-2 px-3 mb-0 success-animate right-alert"
+     style="background-color:#d4edda; 
+            border-left:6px solid #28a745; 
+            color:#155724;">
+
+
+
+						    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+         class="ms-2" viewBox="0 0 16 16">
+
+        <!-- Green Circle -->
+        <circle cx="8" cy="8" r="8" fill="#28a745"/>
+
+        <!-- White Tick -->
+        <path fill="white"
+              d="M11.03 5.97a.75.75 0 0 0-1.08.02L7 9.293 5.97 8.26a.75.75 0 1 0-1.06 1.06l1.72 1.72a.75.75 0 0 0 1.08-.02l3.32-4.18a.75.75 0 0 0-.02-1.08z"/>
+    </svg>
+
+						<div ><%=loginMsg%></div>
+
+					</div>
+
+					<%
+					session.removeAttribute("loginMsg");
+					}
+					%>
+
+
+				</div>
+
 				<div class="row mb-4">
 					<div class="col-md-4">
 						<div class="card shadow p-3 text-center">
@@ -159,7 +227,7 @@ body {
 							</tr>
 							<%
 							} else {
-								int count=1;
+							int count = 1;
 							for (AdminEvent a : list) {
 							%>
 
@@ -210,12 +278,12 @@ body {
 							</tr>
 							<%
 							} else {
-								int count=1;
+							int count = 1;
 							for (AdminEvent a : listS) {
 							%>
 
 							<tr>
-								<td><%= count++%></td>
+								<td><%=count++%></td>
 								<td><%=a.getName()%></td>
 								<td><%=a.getS_Email()%></td>
 								<td><%=a.getS_Course()%></td>
@@ -245,9 +313,9 @@ body {
 				</div>
 				<div class="modal-body">
 					<form name="frm" action="AdminEvent_M" method="post">
-					 
-					<input type="hidden" name="formType" value="event">
-					
+
+						<input type="hidden" name="formType" value="event">
+
 						<div class="mb-3">
 							<label>Event Name</label> <input type="text" class="form-control"
 								name="name" value='' required>
@@ -260,15 +328,15 @@ body {
 							<label>Location</label> <input type="text" class="form-control"
 								name="location" value='' required>
 						</div>
-						<% 
-						Integer AdminId=(Integer)session.getAttribute("AdminId");
-						
-						if(AdminId == null){
+						<%
+						Integer AdminId = (Integer) session.getAttribute("AdminId");
+
+						if (AdminId == null) {
 							out.print("not found");
 						}
 						%>
 						<div class="mb-3">
-							 <input type="hidden" name="adminId" value='<%=AdminId %>'>
+							<input type="hidden" name="adminId" value='<%=AdminId%>'>
 						</div>
 						<button type="submit" class="btn btn-theme w-100" name='s'>Save
 							Event</button>
@@ -288,7 +356,7 @@ body {
 				</div>
 				<div class="modal-body">
 					<form name="frm" action="AdminEvent_M" method="post">
-					   <input type="hidden" name="formType" value="student">
+						<input type="hidden" name="formType" value="student">
 						<div class="mb-3">
 							<label>Student Name</label> <input type="text"
 								class="form-control" name="name" value='' required>
@@ -315,5 +383,17 @@ body {
 
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+	<script type="text/javascript">
+	setTimeout(function() {
+	    const alertBox = document.querySelector('.success-animate');
+	    if(alertBox){
+	    	 alertBox.style.transition = "all 0.5s ease";
+		        alertBox.style.transform = "translateX(100%)";
+	        alertBox.style.opacity = "0";
+	        setTimeout(() => alertBox.remove(), 500);
+	    }
+	}, 3000);
+
+	</script>
 </body>
 </html>
