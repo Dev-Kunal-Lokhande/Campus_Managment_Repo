@@ -142,7 +142,7 @@ public class AdminEventRepoImpl extends DbIntilizer implements AdminEventRepo {
 			int value = ps.executeUpdate();
 			return value > 0 ? true : false;
 		} catch (Exception e) {
-			System.out.print("Error (IsDeleteEvent) = " + e);
+			System.out.println("Error (IsDeleteEvent) = " + e);
 			return false;
 		}
 
@@ -161,10 +161,38 @@ public class AdminEventRepoImpl extends DbIntilizer implements AdminEventRepo {
 			}
 			
 		}catch (Exception e) {
-			System.out.print("Error (AdminEventrepoImpl) ShowStudentCount ="+e);
+			System.out.println("Error (AdminEventrepoImpl) ShowStudentCount ="+e);
 			return 0;
 		}
 		return 0;
 	}
 
+	@Override
+	public boolean isUpdateEvent(AdminEvent model) {
+
+	    boolean flag = false;
+
+	    try {
+	        String sql = "UPDATE adminevent_m SET name=?, EventDate=?, Location=?, admin_id=? WHERE E_Id=?";
+	        ps = con.prepareStatement(sql);
+
+	        ps.setString(1, model.getName());
+	        ps.setString(2, model.getEDate());
+	        ps.setString(3, model.getLocation());
+	        ps.setInt(4, model.getAdminId());
+	        ps.setInt(5, model.getId());
+
+	        int val = ps.executeUpdate();
+
+	        if(val > 0){
+	            flag = true;
+	        }
+
+	    } catch(Exception e){
+	        System.out.println(e);
+	    }
+
+	    return flag;
+	}
+	
 }

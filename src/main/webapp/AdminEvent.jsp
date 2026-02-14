@@ -107,7 +107,7 @@ body {
 					</li>
 
 					<li class="nav-item"><a class="btn btn-light btn-sm"
-						href="AdminLogin.html">Logout</a></li>
+						href="AdminLogin.jsp">Logout</a></li>
 
 				</ul>
 			</div>
@@ -123,7 +123,7 @@ body {
 
 				<a href="AdminEvent_M">Dashboard</a> <a href="AEventmanage">Manage
 					Events</a> <a href="StudentManage">Manage Students</a> <a
-					href="AdminLogin.html">Logout</a>
+					href="AdminLogin.jsp">Logout</a>
 			</div>
 
 			<!-- Main Content -->

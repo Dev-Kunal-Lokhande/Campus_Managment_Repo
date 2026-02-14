@@ -30,7 +30,7 @@ public class AdminEvent_M extends HttpServlet {
         HttpSession session =request.getSession(); 
         Integer AdminId=(Integer)session.getAttribute("AdminId");
     	if(AdminId == null) {
-    		response.sendRedirect("AdminLogin.html");
+    		response.sendRedirect("AdminLogin.jsp");
     		return;
     	}
      
@@ -69,7 +69,7 @@ public class AdminEvent_M extends HttpServlet {
             String location = request.getParameter("location");
             Integer AdminId=(Integer)session.getAttribute("AdminId");
         	if(AdminId == null) {
-        		response.sendRedirect("AdminLogin.html");
+        		response.sendRedirect("AdminLogin.jsp");
         		return;
         	}
         	
@@ -86,7 +86,7 @@ public class AdminEvent_M extends HttpServlet {
     	}else {
     		 Integer AdminId=(Integer)session.getAttribute("AdminId");
          	if(AdminId == null) {
-         		response.sendRedirect("AdminLogin.html");
+         		response.sendRedirect("AdminLogin.jsp");
          		return;
          	}
     		  String Name=request.getParameter("name");

@@ -50,7 +50,19 @@ body {
 }
 </style>
 </head>
+<script type="text/javascript">
+	function setUpdateData(id, name, date, location) {
 
+	   let Id = document.getElementById("updateId").value = id;
+	   let Name= document.getElementById("updateName").value = name;
+	    let Date =document.getElementById("updateDate").value = date;
+	    let Location =document.getElementById("updateLocation").value = location;
+	    console.log(Id);
+	    console.log(Name);
+	    console.log(Date);
+	    console.log(Location);
+	}
+	</script>
 <body>
 
 	<!-- Top Navbar (Copied from AdminEvent.jsp) -->
@@ -162,7 +174,7 @@ body {
 									</tr>
 									<%
 									} else {
-										int count=1;
+									int count = 1;
 									for (AdminEvent a : list) {
 									%>
 									<tr>
@@ -171,12 +183,16 @@ body {
 										<td><%=a.getEDate()%></td>
 										<td><%=a.getLocation()%></td>
 
-										<td class="text-center"><a
-											href="Update_event?id=<%=a.getId()%>"
-											class="btn btn-sm btn-warning me-2" data-bs-toggle="modal"
-											data-bs-target="#UpdateEventModal"> Edit </a> <a
-											href="DeleteAE?id=<%=a.getId()%>"
-											class="btn btn-sm btn-danger">Delete </a></td>
+										<td class="text-center"><button
+												class="btn btn-sm btn-warning" data-bs-toggle="modal"
+												data-bs-target="#UpdateEventModal"
+												onclick="setUpdateData('<%=a.getId()%>',
+                           '<%=a.getName()%>',
+                           '<%=a.getEDate()%>',
+                           '<%=a.getLocation()%>')">
+												Edit</button>
+												<a
+											href="DeleteAE?id=<%=a.getId()%>" class="btn btn-sm btn-danger">Delete </a></td>
 									</tr>
 									<%
 									}
@@ -194,53 +210,63 @@ body {
 	</div>
 	<!-- Update Event Modal -->
 	<div class="modal fade" id="UpdateEventModal" tabindex="-1">
-		<div class="modal-dialog modal-dialog-centered">
-			<div class="modal-content shadow">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content shadow">
 
-				<div class="modal-header"
-					style="background: linear-gradient(135deg, #7f6be8, #9b8df1); color: white;">
-					<h5 class="modal-title">Update Event</h5>
-					<button type="button" class="btn-close btn-close-white"
-						data-bs-dismiss="modal"></button>
-				</div>
+            <div class="modal-header"
+                style="background: linear-gradient(135deg, #7f6be8, #9b8df1); color: white;">
+                <h5 class="modal-title">Update Event</h5>
+                <button type="button" class="btn-close btn-close-white"
+                    data-bs-dismiss="modal"></button>
+            </div>
 
-				<div class="modal-body p-4">
+            <div class="modal-body p-4">
 
-					<form>
-						<div class="mb-3">
-							<label class="form-label">Event Name</label> <input type="text"
-								class="form-control" placeholder="Enter event name" value=''
-								name="name" required="required">
-						</div>
+                <form action="Update_event" method="post">
 
-						<div class="mb-3">
-							<label class="form-label">Event Date</label> <input type="date"
-								class="form-control">
-						</div>
+                    <!-- Hidden ID -->
+                    <input type="hidden" name="id" id="updateId">
 
-						<div class="mb-3">
-							<label class="form-label">Location</label> <input type="text"
-								class="form-control" placeholder="Enter location">
-						</div>
-						
-							<div class="mb-3">
-								<input type="hidden" name="adminId" value='<%=AdminId%>'>
-							</div>
+                    <div class="mb-3">
+                        <label class="form-label">Event Name</label>
+                        <input type="text" class="form-control"
+                               name="name" id="updateName">
+                    </div>
 
-						<button type="submit" class="btn btn-theme w-100">Update
-							Event</button>
-					</form>
+                    <div class="mb-3">
+                        <label class="form-label">Event Date</label>
+                        <input type="date" class="form-control"
+                               name="date" id="updateDate">
+                    </div>
 
-				</div>
+                    <div class="mb-3">
+                        <label class="form-label">Location</label>
+                        <input type="text" class="form-control"
+                               name="location" id="updateLocation">
+                    </div>
 
-			</div>
-		</div>
-	</div>
+                    <input type="hidden" name="adminId"
+                           value="<%=AdminId%>">
+
+                    <button type="submit"
+                        class="btn btn-theme w-100">
+                        Update Event
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
 
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
 		
 	</script>
+	
 
 </body>
 </html>

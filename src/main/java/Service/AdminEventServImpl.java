@@ -43,9 +43,18 @@ public class AdminEventServImpl  implements AdminEventServ{
 	}
 	@Override
 	public int ShowStudentCount(int adminId) {
-		// TODO Auto-generated method stub
+
 		return A_event.ShowStudentCount(adminId);
 	}
+	@Override
+	public boolean isUpdateEvent(AdminEvent model){
+		
+		return A_event.isUpdateEvent( model);
+	}
+//	@Override
+//	public AdminEvent getUpdateEvent(int id) {
+//		return A_event.getUpdateEvent(id);
+//	}
 
 
  

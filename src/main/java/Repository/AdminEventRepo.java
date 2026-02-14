@@ -12,4 +12,6 @@ public interface AdminEventRepo {
 	public List<AdminEvent>ShowAllStudent(int adminId);
 	public boolean isDeleteEvent(int id);
 	public int ShowStudentCount(int adminId);
+	public boolean isUpdateEvent(AdminEvent model);
+//	public AdminEvent getUpdateEvent(int id);
 }
