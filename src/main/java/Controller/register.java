@@ -38,7 +38,7 @@ public class register extends HttpServlet {
 			if(b) {
 				HttpSession session = request.getSession();
 				session.setAttribute("Admin", name);
-				RequestDispatcher re = request.getRequestDispatcher("AdminLogin.html");
+				RequestDispatcher re = request.getRequestDispatcher("AdminLogin.jsp");
 				re.include(request, response);
 			}else {
 				out.write("<h1> failed registration </h1>");

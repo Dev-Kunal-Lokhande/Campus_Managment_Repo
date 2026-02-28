@@ -84,7 +84,7 @@ body {
 					</li>
 
 					<li class="nav-item"><a class="btn btn-light btn-sm"
-						href="AdminLogin.html">Logout</a></li>
+						href="AdminLogin.jsp">Logout</a></li>
 				</ul>
 			</div>
 		</div>
@@ -130,9 +130,6 @@ body {
 							<%
 							Integer AdminId = (Integer) session.getAttribute("AdminId");
 
-							if (AdminId == null) {
-								out.print("not found");
-							}
 							%>
 							<div class="mb-3">
 								<input type="hidden" name="adminId" value='<%=AdminId%>'>

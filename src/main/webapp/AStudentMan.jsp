@@ -50,6 +50,21 @@ body {
 }
 </style>
 </head>
+<script type="text/javascript">
+	function StudentUpdate(id, name, email, course, college_name) {
+		let Id = document.getElementById("updatid").value = id;
+		let Name = document.getElementById("name").value = name;
+		let Email = document.getElementById("email").value = email;
+		let Course = document.getElementById("course").value = course;
+		let College = document.getElementById("college_name").value = college_name;
+
+		console.log(Id);
+		console.log(Name);
+		console.log(Email);
+		console.log(Course);
+		console.log(College);
+	}
+</script>
 
 <body>
 
@@ -77,7 +92,8 @@ body {
 						if (admin == null) {
 							admin = "Admin";
 						}
-						%> <span class="text-white">Welcome, <%=admin%></span>
+						%> 
+						<span class="text-white">Welcome, <%=admin%></span>
 					</li>
 
 					<li class="nav-item"><a class="btn btn-light btn-sm"
@@ -147,9 +163,17 @@ body {
 								<td><%=a.getS_Course()%></td>
 								<td><%=a.getSCollege_name()%></td>
 								<td>
-									<button class="btn btn-warning btn-sm">Edit</button>
-
-									<button class="btn btn-danger btn-sm">Delete</button>
+									<button class="btn btn-warning btn-sm" data-bs-toggle="modal"
+										data-bs-target="#Update"
+										onclick="StudentUpdate(
+										'<%=a.getId()%>',
+										'<%=a.getName().replace("'", "\\'")%>',
+										'<%=a.getS_Email().replace("'", "\\'")%>',
+										'<%=a.getS_Course().replace("'", "\\'")%>',
+										'<%=a.getSCollege_name().replace("'", "\\'")%>'
+										)">
+										Edit</button> <a href="Delete_A_Student?id=<%=a.getId()%>"
+									class="btn btn-danger btn-sm"> Delete </a>
 								</td>
 							</tr>
 							<%
@@ -199,6 +223,61 @@ body {
 								class="form-control" name="college_name" required>
 						</div>
 
+						<button type="submit" class="btn btn-theme w-100">Save
+							Student</button>
+
+					</form>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="Update">
+		<div class="modal-dialog">
+			<div class="modal-content">
+
+				<div class="modal-header">
+					<h5>Update Student</h5>
+					<button class="btn-close" data-bs-dismiss="modal"></button>
+				</div>
+
+
+				<div class="modal-body">
+					<form action="Update_A_Student" method="post">
+
+						<input type="hidden" name="id" id="updatid">
+
+						<div class="mb-3">
+							<label>Name</label> <input type="text" class="form-control"
+								name="Name" id="name">
+						</div>
+
+
+						<div class="mb-3">
+							<label>Email</label> <input type="email" class="form-control"
+								name="Email" id="email">
+						</div>
+
+						<div class="mb-3">
+							<label>Course</label> <input type="text" class="form-control"
+								name="Course" id="course">
+						</div>
+
+						<div class="mb-3">
+							<label>College Name</label> <input type="text"
+								class="form-control" name="College_name" id="college_name">
+						</div>
+						<%
+						Integer Admin = (Integer) session.getAttribute("AdminId");
+						if (Admin == null) {
+							out.print("not found");
+						}
+						%>
+						<div class="mb-3">
+							<input type="hidden" class="form-control" name="admin_id"
+								value='<%=Admin%>'>
+						</div>
 						<button type="submit" class="btn btn-theme w-100">Save
 							Student</button>
 

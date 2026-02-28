@@ -112,31 +112,41 @@ footer {
 }
 
 /* login msg faild  */
-@keyframes slideInRight {
-    from {
-        opacity: 0;
-        transform: translateX(100%);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
+@
+keyframes slideInRight {from { opacity:0;
+	transform: translateX(100%);
 }
 
+to {
+	opacity: 1;
+	transform: translateX(0);
+}
 
+}
 .success-animate {
-    animation: slideInRight 0.6s ease-out;
+	animation: slideInRight 0.6s ease-out;
 }
 
 .right-alert {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    width: 250px;
-    height: 40px;
-    z-index: 9999;
+	position: fixed;
+	top: 20px;
+	right: 20px;
+	width: 250px;
+	height: 40px;
+	z-index: 9999;
 }
 
+.mb-3 {
+	position: relative;
+}
+
+input.valid {
+	border: 2px solid green;
+}
+
+input.invalid {
+	border: 2px solid red;
+}
 </style>
 </head>
 
@@ -196,10 +206,9 @@ footer {
 					if (loginError != null) {
 					%>
 
-					<div class="alert d-flex align-items-center py-2 px-3 mb-0 success-animate right-alert"
-     style="background-color:#f8d7da; 
-            border-left:6px solid #dc3545; 
-            color:#721c24;">
+					<div
+						class="alert d-flex align-items-center py-2 px-3 mb-0 success-animate right-alert"
+						style="background-color: #f8d7da; border-left: 6px solid #dc3545; color: #721c24;">
 
 
 						<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
@@ -219,18 +228,35 @@ footer {
 
 					<h3 class="mb-4 text-center">Admin Login</h3>
 
-					<form name="frm" action="AdminLogin" method="post">
+					<form name="frm" action="AdminLogin" method="post"
+						onsubmit="return validateForm()">
 
 						<div class="mb-3">
 							<label class="form-label">User Email </label> <input type="text"
 								class="form-control" value='' name="name"
-								placeholder="Enter Email id " required>
+								placeholder="Enter Email id " onkeyup="validateEmail()" required>
+							<span id="emailIcon"
+								style="position: absolute; right: 15px; top: 73%; transform: translateY(-50%); font-size: 13px; color: green;">
+							</span> <span id="emailError" class="text-danger small"
+								style="font-size: 11px;"></span>
 						</div>
 
-						<div class="mb-3">
+						<div class="mb-3 position-relative">
 							<label class="form-label">Password</label> <input type="password"
-								class="form-control" value='' name="password"
-								placeholder="Enter password" required>
+								class="form-control pe-5" name="password" id="passwordField"
+								placeholder="Enter password" onkeyup="validatePassword()"
+								required>
+
+							<!-- Green Tick -->
+							<span id="passIcon"
+								style="position: absolute; right: 45px; top: 38px; font-size: 16px; color: green;">
+							</span>
+
+							<!-- Show/Hide Icon -->
+							<span id="togglePassword" onclick="togglePassword()"
+								style="position: absolute; right: 12px; top: 35px; cursor: pointer; font-size: 18px; color: #6c757d;">
+								👁 </span> <span id="passwordError" class="text-danger small"
+								style="font-size: 11px;"> </span>
 						</div>
 
 						<button type="submit" class="btn btn-custom w-100" name="s">
@@ -252,7 +278,7 @@ footer {
 
 		</div>
 	</div>
-		<script type="text/javascript">
+	<script type="text/javascript">
 		setTimeout(function() {
 		    const alertBox = document.querySelector('.success-animate');
 		    if(alertBox){
@@ -262,8 +288,81 @@ footer {
 		        setTimeout(() => alertBox.remove(), 500);
 		    }
 		}, 3000);
-		</script>
+		function validateEmail() {
+
+		    let email = document.frm.name.value.trim();
+		    let emailError = document.getElementById("emailError");
+		    let emailIcon = document.getElementById("emailIcon");
+
+		    let emailPattern =/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|in|org|net|edu)$/;
+
+		    if (email.length === 0) {
+		        emailError.innerHTML = "";
+		        emailIcon.innerHTML = "";
+		    }
+		    else if (!email.match(emailPattern)) {
+		        emailError.innerHTML = "Enter valid email address (example: xyz@gmail.com)";
+		        emailIcon.innerHTML = "";
+		    }
+		    else {
+		        emailError.innerHTML = "";
+		        emailIcon.innerHTML = "✔";
+		    }
+
+		}
+		function validatePassword() {
+
+		    let password = document.frm.password.value;
+		    let passwordError = document.getElementById("passwordError");
+		    let passIcon = document.getElementById("passIcon");
+
+		    let passPattern =/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,9}$/;
+
+		    if (password.length === 0) {
+		        passwordError.innerHTML = "";
+		        passIcon.innerHTML = "";
+		    }
+		    else if (!password.match(passPattern)) {
+		        passwordError.innerHTML =
+		            "Password must be 6–9 characters with 1 uppercase, 1 lowercase, 1 number, and 1 special character (@$!%*?&).";
+		        passIcon.innerHTML = "";
+		    }
+		    else {
+		        passwordError.innerHTML = "";
+		        passIcon.innerHTML = "✔";
+		    }
+		}
+		function validateForm() {
+
+		    validateEmail();
+		    validatePassword();
+
+		    let emailError = document.getElementById("emailError").innerHTML;
+		    let passwordError = document.getElementById("passwordError").innerHTML;
+
+		    if (emailError !== "" || passwordError !== "") {
+		        return false;   // stop submit
+		    }
+
+		    return true;   // allow submit
+		}
+		
+		//Show/hide password
+		function togglePassword() {
+
+		    let password = document.getElementById("passwordField");
+		    let icon = document.getElementById("togglePassword");
+
+		    if (password.type === "password") {
+		        password.type = "text";
+		        icon.textContent = "🙈";   
+		    } else {
+		        password.type = "password";
+		        icon.textContent = "👁";   
+		    }
+		}
 
 		</script>
+
 </body>
 </html>

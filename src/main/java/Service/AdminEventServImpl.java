@@ -51,10 +51,17 @@ public class AdminEventServImpl  implements AdminEventServ{
 		
 		return A_event.isUpdateEvent( model);
 	}
-//	@Override
-//	public AdminEvent getUpdateEvent(int id) {
-//		return A_event.getUpdateEvent(id);
-//	}
+
+	@Override
+	public boolean isdeleteASTudent(int id) {
+		
+		return A_event.isdeleteASTudent(id);
+	}
+	@Override
+	public boolean isUpdateStudentA(AdminEvent model) {
+		
+		return A_event.isUpdateStudentA( model);
+	}
 
 
  
