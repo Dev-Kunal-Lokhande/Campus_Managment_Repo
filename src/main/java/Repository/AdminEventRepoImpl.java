@@ -23,10 +23,10 @@ public class AdminEventRepoImpl extends DbIntilizer implements AdminEventRepo {
 			System.out.println("Name = " + model.getName());
 			System.out.println("Date = " + model.getEDate());
 			System.out.println("Location = " + model.getLocation());
-			System.out.println("Admin id ="+ model.getAdminId());
+			System.out.println("Admin id =" + model.getAdminId());
 
 			int value = ps.executeUpdate();
-			return value > 0? true:false;
+			return value > 0 ? true : false;
 
 		} catch (Exception e) {
 			System.out.println("Error (AdminEventRepoImpl) isSavedata = " + e);
@@ -38,7 +38,7 @@ public class AdminEventRepoImpl extends DbIntilizer implements AdminEventRepo {
 	public int showCountEvent(int admin_id) {
 		try {
 			String sql = "select count(*) from adminevent_m where admin_id=?";
-			
+
 			ps = con.prepareStatement(sql);
 			ps.setInt(1, admin_id);
 			rs = ps.executeQuery();
@@ -96,7 +96,7 @@ public class AdminEventRepoImpl extends DbIntilizer implements AdminEventRepo {
 			ps.setString(4, model.getS_Course());
 			ps.setInt(5, model.getAdminId());
 			int val = ps.executeUpdate();
-			return val > 0  ? true:false;
+			return val > 0 ? true : false;
 
 		} catch (Exception e) {
 			System.out.println("Error (isSaveStudentData) = " + e);
@@ -138,7 +138,7 @@ public class AdminEventRepoImpl extends DbIntilizer implements AdminEventRepo {
 		try {
 			String sql = "delete from adminevent_m where  E_Id =?";
 			ps = con.prepareStatement(sql);
-			ps.setInt(1,id);
+			ps.setInt(1, id);
 			int value = ps.executeUpdate();
 			return value > 0 ? true : false;
 		} catch (Exception e) {
@@ -151,7 +151,7 @@ public class AdminEventRepoImpl extends DbIntilizer implements AdminEventRepo {
 	@Override
 	public int ShowStudentCount(int adminId) {
 		try {
-			String sql ="select count(*)from adminstudent_m where admin_id=?";
+			String sql = "select count(*)from adminstudent_m where admin_id=?";
 			ps = con.prepareStatement(sql);
 			ps.setInt(1, adminId);
 			rs = ps.executeQuery();
@@ -159,9 +159,9 @@ public class AdminEventRepoImpl extends DbIntilizer implements AdminEventRepo {
 //				System.out.print(rs.getInt(1));
 				return rs.getInt(1);
 			}
-			
-		}catch (Exception e) {
-			System.out.println("Error (AdminEventrepoImpl) ShowStudentCount ="+e);
+
+		} catch (Exception e) {
+			System.out.println("Error (AdminEventrepoImpl) ShowStudentCount =" + e);
 			return 0;
 		}
 		return 0;
@@ -170,29 +170,78 @@ public class AdminEventRepoImpl extends DbIntilizer implements AdminEventRepo {
 	@Override
 	public boolean isUpdateEvent(AdminEvent model) {
 
-	    boolean flag = false;
+		boolean flag = false;
 
-	    try {
-	        String sql = "UPDATE adminevent_m SET name=?, EventDate=?, Location=?, admin_id=? WHERE E_Id=?";
-	        ps = con.prepareStatement(sql);
+		try {
+			String sql = "UPDATE adminevent_m SET name=?, EventDate=?, Location=?, admin_id=? WHERE E_Id=?";
+			ps = con.prepareStatement(sql);
 
-	        ps.setString(1, model.getName());
-	        ps.setString(2, model.getEDate());
-	        ps.setString(3, model.getLocation());
-	        ps.setInt(4, model.getAdminId());
-	        ps.setInt(5, model.getId());
+			ps.setString(1, model.getName());
+			ps.setString(2, model.getEDate());
+			ps.setString(3, model.getLocation());
+			ps.setInt(4, model.getAdminId());
+			ps.setInt(5, model.getId());
 
-	        int val = ps.executeUpdate();
+			int val = ps.executeUpdate();
 
-	        if(val > 0){
-	            flag = true;
-	        }
+			if (val > 0) {
+				flag = true;
+			}
 
-	    } catch(Exception e){
-	        System.out.println(e);
-	    }
+		} catch (Exception e) {
+			System.out.println(e);
+		}
 
-	    return flag;
+		return flag;
 	}
-	
+
+	@Override
+	public boolean isdeleteASTudent(int id) {
+		try {
+			String sql = "delete from adminStudent_m where S_id=?";
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, id);
+			int val = ps.executeUpdate();
+			if (val > 0) {
+				return true;
+			} else {
+				return false;
+			}
+
+		} catch (Exception e) {
+			System.out.println("Error isDeleteAStudent" + e);
+			return false;
+		}
+
+	}
+
+	@Override
+	public boolean isUpdateStudentA(AdminEvent model) {
+		boolean flag = false;
+
+		try {
+			String sql = "UPDATE adminStudent_m SET Name=?,Email=?,Course=? ,College_Name=?,admin_id=?WHERE S_Id=?";
+			ps = con.prepareStatement(sql);
+
+			ps.setString(1, model.getName());
+			ps.setString(2, model.getS_Email());
+			ps.setString(3, model.getS_Course());
+			ps.setString(4, model.getSCollege_name());
+			ps.setInt(5, model.getAdminId());
+			ps.setInt(6, model.getId());
+
+			int val = ps.executeUpdate();
+
+			if (val > 0) {
+				flag = true;
+			}
+
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+
+		return flag;
+
+	}
+
 }

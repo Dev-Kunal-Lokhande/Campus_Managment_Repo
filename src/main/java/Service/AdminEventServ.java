@@ -13,5 +13,7 @@ public interface AdminEventServ {
 	public int ShowStudentCount(int adminId);
 	public boolean isDeleteEvent(int id);
     public boolean isUpdateEvent(AdminEvent model) ;
-//    public AdminEvent getUpdateEvent(int id);
+    public boolean isdeleteASTudent(int id);
+    public boolean isUpdateStudentA(AdminEvent model);
+    
 }

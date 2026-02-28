@@ -28,6 +28,7 @@ public class Delete_Event extends HttpServlet {
 //	        out.write("Deleted ID: " + Deleteid);
 			AdminEventServ ser = new AdminEventServImpl();
 			boolean b = ser.isDeleteEvent(Deleteid);
+			
 			if (b) {
 				out.write(" delete event");
 				request.getRequestDispatcher("AEventmanage").forward(request, response);
@@ -39,11 +40,13 @@ public class Delete_Event extends HttpServlet {
 			}
 			
 			
+			
+			
 	}
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.sendRedirect("/AEventmanage");
+	response.sendRedirect("/AEventmanage");
 		doGet(request, response);
 	}
 
