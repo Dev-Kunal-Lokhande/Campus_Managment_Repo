@@ -23,9 +23,8 @@ public class AdminLogin extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	response.setContentType("text/html");
-		PrintWriter out=response.getWriter();
-		String name = request.getParameter("name");
-		String pass = request.getParameter("password");
+		String name = request.getParameter("name").trim();
+		String pass = request.getParameter("password").trim();
 		Model.AdminLogin log = new Model.AdminLogin();
 		log.setName(name);
 		log.setPassword(pass);

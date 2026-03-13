@@ -13,5 +13,5 @@ import lombok.Setter;
 
 public class AdminLogin {
 private String name;
-private String Password; 
+private String password; 
 }
