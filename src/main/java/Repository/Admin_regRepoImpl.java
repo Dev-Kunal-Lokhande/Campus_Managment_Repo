@@ -33,4 +33,43 @@ public class Admin_regRepoImpl extends DbIntilizer implements Admin_regRepo {
 		
 	}
 
+	@Override
+	public boolean isEmailExists(String email) {
+		try {
+			String sql = "select * from adminregister where email=?";
+			ps=con.prepareStatement(sql);
+			ps.setString(1, email);
+			rs=ps.executeQuery();
+			if(rs.next()) {
+				return true;
+			}
+			return false;
+			
+		}catch (Exception e) {
+			System.out.println("Error (isEmailExists)"+e);
+			return false;
+		}
+	
+	}
+
+	@Override
+	public AdminRegister getAdminByEmail(String email) {
+		try {
+			String sql = "select * from  adminregister where email=?";
+			ps=con.prepareStatement(sql);
+			ps.setString(1,email);
+			rs=ps.executeQuery();
+			if(rs.next()) {
+				AdminRegister re = new  AdminRegister();
+				re.setPassword(rs.getString("password"));
+				return re;
+			}
+			
+		}catch (Exception e) {
+			System.out.println("Error (getAdminByEmail) "+e);
+			return null;
+		}
+		return null;
+	}
+
 }

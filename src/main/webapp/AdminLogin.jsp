@@ -152,35 +152,61 @@ input.invalid {
 
 <body>
 	<nav class="navbar navbar-expand-lg navbar-dark bg-theme">
+
 		<div class="container">
+
 			<a class="navbar-brand fw-bold" href="#">Campus Events</a>
+
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target="#menu">
+
 				<span class="navbar-toggler-icon"></span>
+
 			</button>
 
 			<div class="collapse navbar-collapse" id="menu">
+
 				<ul class="navbar-nav ms-auto">
-					<li class="nav-item"><a class="nav-link active" href="#">Home</a></li>
+
+					<li class="nav-item"><a class="nav-link active" href="#">Home</a>
+					</li>
+
 					<li class="nav-item"><a class="nav-link" href="#">Events</a></li>
+
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="#" role="button"
-						data-bs-toggle="dropdown" aria-expanded="false"> Login </a>
-						<ul class="dropdown-menu w-25">
-							<li><a class="dropdown-item" href="AdminLogin.html">Admin</a></li>
-							<li><a class="dropdown-item" href="StudentLogin.html">Student</a></li>
+						data-bs-toggle="dropdown"> Login </a>
+
+						<ul class="dropdown-menu">
+
+							<li><a class="dropdown-item" href="AdminLogin.jsp">Admin</a>
+							</li>
+
+							<li><a class="dropdown-item" href="StudentLogin.jsp">Student</a>
+							</li>
+
 						</ul></li>
 
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="#" role="button"
-						data-bs-toggle="dropdown" aria-expanded="false"> Register </a>
-						<ul class="dropdown-menu w-25">
-							<li><a class="dropdown-item" href="AdminRegister.html">Admin</a></li>
-							<li><a class="dropdown-item" href="StudentRegister.html">Student</a></li>
+						data-bs-toggle="dropdown"> Register </a>
+
+						<ul class="dropdown-menu">
+
+							<li><a class="dropdown-item" href="AdminRegister.jsp">Admin</a>
+							</li>
+
+							<li><a class="dropdown-item" href="StudentRegister.jsp">Student</a>
+							</li>
+
 						</ul></li>
+
 				</ul>
+
 			</div>
+
 		</div>
+
 	</nav>
 
 
@@ -203,6 +229,7 @@ input.invalid {
 				<div class="login-box w-100">
 					<%
 					String loginError = (String) session.getAttribute("loginError");
+
 					if (loginError != null) {
 					%>
 
@@ -225,6 +252,38 @@ input.invalid {
 					session.removeAttribute("loginError");
 					}
 					%>
+					<%
+					String registerMsg = (String) session.getAttribute("registerMsg");
+					if (registerMsg != null) {
+					%>
+
+					<div
+						class="alert d-flex align-items-center py-2 px-3 mb-0 success-animate right-alert"
+						style="background-color: #d4edda; border-left: 6px solid #28a745; color: #155724;">
+
+
+
+						<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+							class="ms-2" viewBox="0 0 16 16">
+
+        <!-- Green Circle -->
+        <circle cx="8" cy="8" r="8" fill="#28a745" />
+
+        <!-- White Tick -->
+        <path fill="white"
+								d="M11.03 5.97a.75.75 0 0 0-1.08.02L7 9.293 5.97 8.26a.75.75 0 1 0-1.06 1.06l1.72 1.72a.75.75 0 0 0 1.08-.02l3.32-4.18a.75.75 0 0 0-.02-1.08z" />
+    </svg>
+
+						<div><%=registerMsg%></div>
+
+					</div>
+
+					<%
+					session.removeAttribute("registerMsg");
+					}
+					%>
+
+
 
 					<h3 class="mb-4 text-center">Admin Login</h3>
 
@@ -234,7 +293,8 @@ input.invalid {
 						<div class="mb-3">
 							<label class="form-label">User Email </label> <input type="text"
 								class="form-control" value='' name="name"
-								placeholder="Enter Email id " onkeyup="validateEmail()" required>
+								placeholder="Enter Email id " id="emailField"
+								onkeyup="validateEmail()" oninput="fixPassword()" required>
 							<span id="emailIcon"
 								style="position: absolute; right: 15px; top: 73%; transform: translateY(-50%); font-size: 13px; color: green;">
 							</span> <span id="emailError" class="text-danger small"
@@ -244,8 +304,8 @@ input.invalid {
 						<div class="mb-3 position-relative">
 							<label class="form-label">Password</label> <input type="password"
 								class="form-control pe-5" name="password" id="passwordField"
-								placeholder="Enter password" onkeyup="validatePassword()"
-								required>
+								oninput="fixPassword()" placeholder="Enter password"
+								onkeyup="validatePassword()" required>
 
 							<!-- Green Tick -->
 							<span id="passIcon"
@@ -263,11 +323,11 @@ input.invalid {
 							Login</button>
 
 						<div class="text-center mt-3">
-							<a href="#" class="text-decoration-none">Forgot password?</a>
+							<a href="AdminForgotPass.jsp" class="text-decoration-none">Forgot password?</a>
 						</div>
 
 						<div class="text-center mt-2">
-							<span>Don't have an account?</span> <a href="AdminRegister.html"
+							<span>Don't have an account?</span> <a href="AdminRegister.jsp"
 								class="text-decoration-none"> Register</a>
 						</div>
 
@@ -361,8 +421,20 @@ input.invalid {
 		        icon.textContent = "👁";   
 		    }
 		}
+		// starting space remove 
+		function fixPassword(){
+			//Email
+			let emailField = document.getElementById("emailField");
+			emailField.value = emailField.value.trimStart();
+			emailField.value = emailField.value.replace(/\s/g,'');
+			
+			//Password
+			let passField = document.getElementById("passwordField");
+			passField.value = passField.value.trimStart();
+			passField.value = passField.value.replace(/\s/g,'');
 
+			}
 		</script>
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

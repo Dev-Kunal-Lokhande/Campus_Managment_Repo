@@ -21,33 +21,44 @@ public class register extends HttpServlet {
 			throws ServletException, IOException {
 
 		response.setContentType("Text/html");
-		PrintWriter out = response.getWriter();
-			String name = request.getParameter("name");
-			String email = request.getParameter("email");
-			String contact = request.getParameter("contact");
-			String password = request.getParameter("password");
-					
-			AdminRegister adminReg = new AdminRegister();
-			adminReg.setName(name);
-			adminReg.setEmail(email);
-			adminReg.setContact(contact);
-			adminReg.setPassword(password);
-			
-			AdminServ AdService = new AdminServImpl();
-			boolean b= AdService.isAddData(adminReg);
-			if(b) {
-				HttpSession session = request.getSession();
-				session.setAttribute("Admin", name);
-				RequestDispatcher re = request.getRequestDispatcher("AdminLogin.jsp");
-				re.include(request, response);
-			}else {
-				out.write("<h1> failed registration </h1>");
-				RequestDispatcher re = request.getRequestDispatcher("AdminRegister.html");
-				re.include(request, response);
-			}
-			
-		}
 		
+		String name = request.getParameter("name").trim();
+		String email = request.getParameter("email").trim();
+		String contact = request.getParameter("contact").trim();
+		String password = request.getParameter("password").trim();
+
+		AdminRegister adminReg = new AdminRegister();
+		adminReg.setName(name);
+		adminReg.setEmail(email);
+		adminReg.setContact(contact);
+		adminReg.setPassword(password);
+
+		AdminServ AdService = new AdminServImpl();
+		if (AdService.isEmailExists(email)) {
+			HttpSession session = request.getSession();
+
+			session.setAttribute("registerMsg", "Email is duplicate. Please use another email.");
+			RequestDispatcher rd = request.getRequestDispatcher("AdminRegister.jsp");
+
+			rd.forward(request, response);
+		}
+
+		boolean b = AdService.isAddData(adminReg);
+		if (b) {
+			HttpSession session = request.getSession();
+			session.setAttribute("Admin", name);
+			session.setAttribute("registerMsg", "Registration Succsefull");
+			RequestDispatcher re = request.getRequestDispatcher("AdminLogin.jsp");
+			re.include(request, response);
+		} else {
+			HttpSession session = request.getSession();
+			session.setAttribute("registerMsg", "Registration Failed");
+			RequestDispatcher re = request.getRequestDispatcher("AdminRegister.jsp");
+			re.forward(request, response);
+		}
+
+	}
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
