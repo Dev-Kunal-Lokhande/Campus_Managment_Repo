@@ -15,5 +15,6 @@ public interface AdminEventServ {
     public boolean isUpdateEvent(AdminEvent model) ;
     public boolean isdeleteASTudent(int id);
     public boolean isUpdateStudentA(AdminEvent model);
+    public List<AdminEvent> getSearchEventbyName(String serData,int adminId);
     
 }

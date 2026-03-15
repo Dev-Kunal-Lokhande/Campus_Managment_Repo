@@ -244,4 +244,43 @@ public class AdminEventRepoImpl extends DbIntilizer implements AdminEventRepo {
 
 	}
 
+//*******************************Search Event method ************************************
+	@Override
+	public List<AdminEvent> getSearchEventbyName(String serData,int adminId) {
+
+		List<AdminEvent> list = new ArrayList<>();
+
+		try {
+
+			String sql = "select * from adminevent_m where name like ? and admin_id=?";
+
+			ps = con.prepareStatement(sql);
+
+			ps.setString(1, "%" + serData + "%");
+			ps.setInt(2, adminId);
+
+			rs = ps.executeQuery();
+
+			while (rs.next()) {
+
+				AdminEvent model = new AdminEvent();
+				model.setId(rs.getInt("E_Id"));
+				model.setName(rs.getString("name"));
+				model.setEDate(rs.getString("EventDate"));
+				model.setLocation(rs.getString("Location"));
+
+				list.add(model);
+
+			}
+			System.out.println("Search text = " + serData);
+
+		} catch (Exception e) {
+
+			System.out.println("Error (getSearchEventbyName) " + e);
+
+		}
+
+		return list;
+	}
+
 }

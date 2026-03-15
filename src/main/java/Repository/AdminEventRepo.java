@@ -24,4 +24,6 @@ public interface AdminEventRepo {
 	public boolean isdeleteASTudent(int id);
 
 	public boolean isUpdateStudentA(AdminEvent model);
+	
+	public List<AdminEvent> getSearchEventbyName(String serData,int adminId) ;
 }
