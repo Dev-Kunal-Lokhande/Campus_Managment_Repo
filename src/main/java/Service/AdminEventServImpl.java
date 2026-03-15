@@ -62,6 +62,11 @@ public class AdminEventServImpl  implements AdminEventServ{
 		
 		return A_event.isUpdateStudentA( model);
 	}
+	@Override
+	public List<AdminEvent> getSearchEventbyName(String serData ,int adminId) {
+		
+		return A_event.getSearchEventbyName(serData,adminId);
+	}
 
 
  
